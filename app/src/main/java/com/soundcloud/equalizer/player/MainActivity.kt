@@ -21,6 +21,11 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        // Matches PlayerLauncher.EXTRA_LAUNCHED_FROM_EQUALIZER in the HardBass EQ app.
+        const val EXTRA_LAUNCHED_FROM_EQUALIZER = "com.hardbasseq.eq.EXTRA_LAUNCHED_FROM_EQUALIZER"
+    }
+
     private lateinit var binding: ActivityMainBinding
     private val soundCloudClient = SoundCloudClient()
     private var audioService: AudioPlayerService? = null
@@ -97,6 +102,10 @@ class MainActivity : AppCompatActivity() {
                     binding.btnPlayPause.text = "Pause"
                 }
             }
+        }
+
+        if (intent?.getBooleanExtra(EXTRA_LAUNCHED_FROM_EQUALIZER, false) == true) {
+            binding.switchEqualizerBinding.isChecked = true
         }
     }
 
